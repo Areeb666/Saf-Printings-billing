@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 import sqlite3
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder=".")
 
 # Database connection function
 def get_db_connection():
