@@ -16,6 +16,9 @@ def get_db_connection():
 @app.route('/')
 def home():
     return render_template('index.html')
+@app.route('/styles.css')
+def serve_css():
+    return send_from_directory(os.getcwd(), 'styles.css')  # Serves from project root
 
 @app.route('/add_product', methods=['GET', 'POST'])
 def add_product():
