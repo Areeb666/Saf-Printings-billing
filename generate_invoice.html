@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Invoice</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('view_products') }}">View Products</a>
+        <a href="{{ url_for('generate_invoice') }}">Generate Invoice</a>
+        <a href="{{ url_for('view_invoices') }}">View Invoices</a>
+    </nav>
+
+    <div class="container">
+        <h1>Generate Invoice</h1>
+        <form method="POST" action="{{ url_for('generate_invoice') }}">
+            <label>Customer Name:</label>
+            <input type="text" name="customer_name" required>
+        
+            <label>Contact Number:</label>
+            <input type="text" name="contact_number" required>
+        
+            <label>Address:</label>
+            <input type="text" name="address" required>
+        
+            <label>Select Product:</label>
+            <select name="product_name[]" required>
+                <option value="" selected disabled>-- Select Product --</option>
+                {% for product in products %}
+                    <option value="{{ product[1] }}">{{ product[1] }} - ₹{{ product[2] }}</option>
+                {% endfor %}
+            </select>
+
+            <label>Price (INR):</label>
+            <input type="number" name="price[]" required>
+            
+            <label>Quantity:</label>
+            <input type="number" name="quantity[]" min="1" required>
+
+            <label>Discount (%):</label>
+            <input type="number" name="discount[]" min="0" max="100" value="0">
+        
+            <button type="submit">Generate Invoice</button>
+        </form>
+    </div>
+</body>
+</html>
